@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Stylesheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
 
@@ -12,7 +12,7 @@ const FavoritesScreen = props => {
 
   if (favMeals.length === 0 || !favMeals) {
     return (
-      <View> style={styles.content}
+      <View style={styles.content}>
         <DefaultText>No favorite meals found!</DefaultText>
       </View>
     )
@@ -38,7 +38,7 @@ FavoritesScreen.navigationOptions = navData => {
   };
 };
 
-const styles = Stylesheet.create({
+const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
