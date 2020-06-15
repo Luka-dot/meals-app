@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useSelector } from 'react-redux';
 
 import { MEALS } from '../data/dummy-data';
 import HeaderButton from '../components/HeaderButton';
@@ -15,9 +16,18 @@ const ListItem = props => {
 }
 
 const MealDetailScreen = props => {
+  const availableMeals = useSelector(state => state.meals.meals);
+
   const mealId = props.navigation.getParam('mealId');
 
-  const selectedMeals = MEALS.find(meal => meal.id === mealId);
+  const selectedMeals = availableMeals.find(meal => meal.id === mealId);
+
+  // setting params to be able to send to MealsDetails below
+  // has to be inside useEffect to avid infinite loop 
+  useEffect(() => {
+    props.navigation.setParams({mealTitle: selectedMeal.title});
+  }, [selectedMeal]);  // when selected meal changes info will be send to header
+  
 
   return (
     <ScrollView>
@@ -41,9 +51,10 @@ const MealDetailScreen = props => {
 
 MealDetailScreen.navigationOptions = (navigationData) => {
   const mealId = navigationData.navigation.getParam('mealId');
-  const selectedMeals = MEALS.find(meal => meal.id === mealId);
+  const mealTitle = navigationData.navigation.getParam('mealTitle');
+ // const selectedMeals = MEALS.find(meal => meal.id === mealId);
   return {
-    headerTitle: selectedMeals.title,
+    headerTitle: mealTitle,
     headerRight: () => <HeaderButtons HeaderButtonComponent={HeaderButton} >
                     <Item title='Favorite' iconName='ios-star' onPress={() => {
                       console.log('marked Favorite');
