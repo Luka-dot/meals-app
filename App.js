@@ -3,10 +3,20 @@ import { Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { enableScreens } from 'react-native-screens';
+import { createStore, combineReducers } from 'redux'; 
+import { Provider } from 'react-redux';
 
 import MealsNavigator from './navigation/MealsNavigator';
+import mealsReducer from './store/reducers/meals';
 
 enableScreens();
+
+// dont really need rootReducer since have only 1 reducer.
+const rootReducer = combineReducers({
+  meals: mealsReducer
+})
+
+const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -27,5 +37,6 @@ export default function App() {
     );
   }
 
-  return <MealsNavigator />;
+  // Provider should wrap around root app component. Top most component
+  return <Provider store={store} ><MealsNavigator /></Provider>;
 }
