@@ -117,25 +117,3 @@ const styles = StyleSheet.create({
 });
 
 export default FiltersScreen;
-
-
-{/* <FiltersScreen 
-        label='Gluten-free' 
-        state={isGlutenFree} 
-        onChange={newValue => setIsGlutenFree(newValue)} 
-      />
-      <FiltersScreen 
-        label='Lactose-free' 
-        state={isLactoseFree} 
-        onChange={newValue => setIsLactoseFree(newValue)} 
-      />
-      <FiltersScreen 
-        label='Vegan' 
-        state={isVegan} 
-        onChange={newValue => setIsVegan(newValue)} 
-      />
-      <FiltersScreen 
-        label='Vegetarian' 
-        state={isVegetarian} 
-        onChange={newValue => setIsVegetarian(newValue)} 
-      /> */}
